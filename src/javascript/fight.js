@@ -1,8 +1,6 @@
 
 import { createElement } from './helpers/domHelper';
 import { showModal } from './modals/modal';
-import { fightersDetails } from './helpers/mockData';
-import { showWinnerModal } from './modals/winner';
 
 let hp1 = 0;
 let hp2 = 0;
@@ -14,17 +12,29 @@ export async function fight(firstFighter, secondFighter) {
 
   showFighterFightModal(firstFighter, secondFighter);
   while (hp2 > 0 && hp1 > 0) {
+
+    hp1 = hp1 - getDamage(secondFighter, firstFighter)
+    await TimeOutPromise(100);
+    console.log(hp1);
+    healthElement.innerText = 'Total Health - ' + hp1;
+
+    if (hp1 < 0) {
+      healthElement.innerText = 'Total Health - ' + 0;
+      break;
+    }
+
     hp2 = hp2 - getDamage(firstFighter, secondFighter);
-    await TimeOutPromise(1000);
+    await TimeOutPromise(100);
     console.log(hp2);
     healthElement2.innerText = 'Total Health - ' + hp2;
 
-    hp1 = hp1 - getDamage(secondFighter, firstFighter)
-    await TimeOutPromise(1000);
-    console.log(hp1);
-    healthElement.innerText = 'Total Health - ' + hp1;
+    if (hp2 < 0) {
+      healthElement2.innerText = 'Total Health - ' + 0;
+      break;
+    }
+
   }
-  await TimeOutPromise(2000);
+  await TimeOutPromise(1000);
 
   if (hp2 > hp1) {
     return secondFighter;
