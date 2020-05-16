@@ -15,12 +15,12 @@ export async function fight(firstFighter, secondFighter) {
   showFighterFightModal(firstFighter, secondFighter);
   while (hp2 > 0 && hp1 > 0) {
     hp2 = hp2 - getDamage(firstFighter, secondFighter);
-    await TimeOutPromise(100);
+    await TimeOutPromise(1000);
     console.log(hp2);
     healthElement2.innerText = 'Total Health - ' + hp2;
 
     hp1 = hp1 - getDamage(secondFighter, firstFighter)
-    await TimeOutPromise(100);
+    await TimeOutPromise(1000);
     console.log(hp1);
     healthElement.innerText = 'Total Health - ' + hp1;
   }
@@ -47,30 +47,20 @@ export function getDamage(attacker, enemy) {
   if (damage < 0) {
     damage = 0;
   }
-  console.log('damage = ', damage);
   return damage;
 }
 
 export function getHitPower(fighter) {
-  // return hit power
-  const criticalHitChance = getRandomInt(2);
-  const power = fighter.attack * criticalHitChance;
-  console.log('criticalHitChance = ', criticalHitChance);
-  console.log('power = ', power);
-  return power;
+  // return hit power 
+  let criticalHitChance = Math.random() + 1
+  return fighter.attack * criticalHitChance;
 }
 
 export function getBlockPower(fighter) {
-
-  const dodgeChance = getRandomInt(2);
-  const block = fighter.defense * dodgeChance;
-  console.log('block = ', block);
-  return block;
+  let dodgeChance = Math.random() + 1
+  return fighter.defense * dodgeChance;
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max)) + 1;
-}
 
 export function showFighterFightModal(firstFighter, secondFighter) {
   const title = 'Fighter Arena';

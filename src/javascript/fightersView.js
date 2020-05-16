@@ -24,7 +24,9 @@ async function showFighterDetails(event, fighter) {
 }
 
 export async function getFighterInfo(fighterId) {
+
   return getFighterDetails(fighterId);
+  
   // get fighter form fightersDetailsCache or use getFighterDetails function
 }
 
